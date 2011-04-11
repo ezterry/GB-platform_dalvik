@@ -17,7 +17,14 @@ include $(CLEAR_VARS)
 # Variables used in the included Dvm.mk.
 dvm_os := $(TARGET_OS)
 dvm_arch := $(TARGET_ARCH)
+
+ifeq ($(TARGET_DVM_ARCH_VARIANT),)
 dvm_arch_variant := $(TARGET_ARCH_VARIANT)
+else
+$(warning,"Using alt ARCH $(TARGET_DVM_ARCH_VARIANT)")
+dvm_arch_variant := $(TARGET_DVM_ARCH_VARIANT)
+endif
+
 dvm_simulator := $(TARGET_SIMULATOR)
 
 include $(LOCAL_PATH)/Dvm.mk
