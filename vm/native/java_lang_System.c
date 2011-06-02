@@ -19,6 +19,7 @@
  */
 #include "Dalvik.h"
 #include "native/InternalNativePriv.h"
+#define unlikely(x)     __builtin_expect((x),0)
 
 /*
  * Call the appropriate copy function given the circumstances.
