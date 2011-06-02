@@ -23,10 +23,10 @@
 /*
  * Call the appropriate copy function given the circumstances.
  */
-static void copy(void *dest, const void *src, size_t n, bool sameArray,
+static inline void copy(void *dest, const void *src, size_t n, bool sameArray,
         size_t elemSize)
 {
-    if (sameArray) {
+    if (unlikely(sameArray)) {
         /* Might overlap. */
         if (elemSize == sizeof(Object*)) {
             /*
