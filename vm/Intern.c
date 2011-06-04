@@ -51,7 +51,7 @@ void dvmStringInternShutdown(void)
     gDvm.literalStrings = NULL;
 }
 
-static StringObject* lookupInternedString(StringObject* strObj, bool isLiteral)
+static inline StringObject* lookupInternedString(StringObject* strObj, bool isLiteral)
 {
     StringObject* found;
     u4 hash;
