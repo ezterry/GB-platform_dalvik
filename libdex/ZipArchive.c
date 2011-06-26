@@ -71,7 +71,7 @@
  * Convert a ZipEntry to a hash table index, verifying that it's in a
  * valid range.
  */
-static int entryToIndex(const ZipArchive* pArchive, const ZipEntry entry)
+static inline int entryToIndex(const ZipArchive* pArchive, const ZipEntry entry)
 {
     long ent = ((long) entry) - kZipEntryAdj;
     if (ent < 0 || ent >= pArchive->mHashTableSize ||
@@ -86,7 +86,7 @@ static int entryToIndex(const ZipArchive* pArchive, const ZipEntry entry)
 /*
  * Simple string hash function for non-null-terminated strings.
  */
-static unsigned int computeHash(const char* str, int len)
+static inline unsigned int computeHash(const char* str, int len)
 {
     unsigned int hash = 0;
 
@@ -99,7 +99,7 @@ static unsigned int computeHash(const char* str, int len)
 /*
  * Add a new entry to the hash table.
  */
-static void addToHash(ZipArchive* pArchive, const char* str, int strLen,
+static inline void addToHash(ZipArchive* pArchive, const char* str, int strLen,
     unsigned int hash)
 {
     const int hashTableSize = pArchive->mHashTableSize;
@@ -118,7 +118,7 @@ static void addToHash(ZipArchive* pArchive, const char* str, int strLen,
 /*
  * Get 2 little-endian bytes.
  */
-static u2 get2LE(unsigned char const* pSrc)
+static inline u2 get2LE(unsigned char const* pSrc)
 {
     return pSrc[0] | (pSrc[1] << 8);
 }
@@ -126,7 +126,7 @@ static u2 get2LE(unsigned char const* pSrc)
 /*
  * Get 4 little-endian bytes.
  */
-static u4 get4LE(unsigned char const* pSrc)
+static inline u4 get4LE(unsigned char const* pSrc)
 {
     u4 result;
 
