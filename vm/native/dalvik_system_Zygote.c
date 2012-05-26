@@ -363,9 +363,12 @@ static inline void pushAnonymousPagesToKSM(void)
 
     fp=fopen("/proc/self/maps","r");
 
+    if(fp==NULL){
+        return;
+    }
+
     while(fscanf(fp,"%lx-%lx %4s %lx %lx:%lx %ld",
-                 &start,&end,perms,&misc,&misc,&misc,&misc)
-         )
+                 &start,&end,perms,&misc,&misc,&misc,&misc) == 7)
     {
         /* Read the sections name striping any preceeding spaces
            and truncating to 100char (99 + \0)*/
@@ -374,10 +377,12 @@ static inline void pushAnonymousPagesToKSM(void)
         while(1)
         {
             ch=fgetc(fp);
-            if(ch=='\n' || ch==EOF)
+            if(ch=='\n' || ch==EOF){
                 break;
-            if(offset == 0 && ch == ' ')
+            }
+            if(offset == 0 && ch == ' '){
                 continue;
+            }
             if(offset+1 < 100){
                 section[offset]=ch;
                 section[offset+1]=0;
@@ -397,6 +402,7 @@ static inline void pushAnonymousPagesToKSM(void)
         if(ch==EOF)
             break;
     }
+    fclose(fp);
 }
 /*
  * Utility routine to fork zygote and specialize the child process.
